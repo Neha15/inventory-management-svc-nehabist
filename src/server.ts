@@ -29,7 +29,7 @@ export class ApiServer {
 
   // private readonly app: express.Application;
   private server: http.Server = null;
-  public PORT: number = +process.env.PORT || npmPackage.config.port;
+  public PORT: number = + process.env.PORT || npmPackage.config.port;
 
   constructor(private readonly app: express.Application = express(), apiContext = configApiContext) {
 
@@ -78,11 +78,7 @@ export class ApiServer {
    */
   public async start(): Promise<ApiServer> {
     return new Promise<ApiServer>((resolve, reject) => {
-      this.server = this.app.listen(this.PORT, (err: any) => {
-        if (err) {
-          return reject(err);
-        }
-
+      this.server = this.app.listen(this.PORT, () => {
         const addressInfo = this.server.address() as AddressInfo;
 
         const address = addressInfo.address === '::' ? 'localhost' : addressInfo.address;
